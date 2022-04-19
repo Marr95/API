@@ -2,13 +2,21 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 )
 
+var title string //voer hier je de titel van de film in
+
+func init() {
+	flag.StringVar(&title, "Filmtitle", "", "Vul de titel van de film in: ")
+	flag.Parse()
+}
 func main() {
+
 	key := ""
 	data, err := ioutil.ReadFile("omd.key") //hier lees jij je key file mee
 	if err != nil {
@@ -16,7 +24,6 @@ func main() {
 	}
 	key = string(data)
 
-	title := "blood diamond"             //voer hier je de titel van de film in
 	baseUrl := "http://www.omdbapi.com/" //dit is de url van de server
 	url := baseUrl + "?t=" + title       //hier voor je titel in op de site
 	url += "&apikey=" + key              //hier voor je url plus de api key
